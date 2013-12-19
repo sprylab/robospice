@@ -341,7 +341,11 @@ public abstract class BaseSpiceArrayAdapter<T> extends ArrayAdapter<T> {
             animation = AnimationUtils.loadAnimation(getContext(), android.R.anim.fade_in);
             animation.setDuration(getContext().getResources().getInteger(android.R.integer.config_mediumAnimTime));
             fileName = params[0];
-            return BitmapFactory.decodeFile(fileName, null);
+            BitmapFactory.Options options = new BitmapFactory.Options();
+            options.inPreferredConfig = Bitmap.Config.RGB_565;
+            options.inPurgeable = true;
+            options.inDither = true;
+            return BitmapFactory.decodeFile(fileName, options);
         }
 
         // Once complete, see if ImageView is still around and set bitmap.
